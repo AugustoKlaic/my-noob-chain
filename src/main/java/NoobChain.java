@@ -3,12 +3,15 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import java.security.Security;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class NoobChain {
 
     public static List<Block> blockchain = new ArrayList<Block>();
     public static Integer difficulty = 5;
+    public static float minimumTransaction = 0.1f;
+    public static HashMap<String,TransactionOutput> UTXOs = new HashMap<String,TransactionOutput>(); //list of all unspent transactions.
 
     public static Wallet wallet1;
     public static Wallet wallet2;
