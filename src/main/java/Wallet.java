@@ -30,4 +30,12 @@ public class Wallet {
             throw new RuntimeException(e);
         }
     }
+
+    public PrivateKey getPrivateKey() {
+        return privateKey;
+    }
+
+    public PublicKey getPublicKey() {
+        return publicKey;
+    }
 }
