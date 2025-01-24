@@ -12,11 +12,11 @@ public class Block {
         this.data = data;
         this.previousHash = previousHash;
         this.timeStamp = new Date().getTime();
-        this.hash = this.calculateHash();
+        this.hash = calculateHash();
     }
 
     public String calculateHash() {
-        String calculatedHash = HashUtils.applySha256(this.previousHash + this.timeStamp.toString() + this.data + this.nonce);
+        String calculatedHash = HashUtils.applySha256(this.previousHash + this.timeStamp.toString() + this.nonce + this.data);
         return calculatedHash;
     }
 

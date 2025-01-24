@@ -11,19 +11,21 @@ public class NoobChain {
     public static void main(String[] args) {
 
         Block genesisBlock = new Block("Hi im the first block", "0");
-        Block secondBlock = new Block("Yo im the second block", genesisBlock.getHash());
-        Block thirdBlock = new Block("Hey im the third block", secondBlock.getHash());
-
+        System.out.println("Trying to Mine block 1... \n");
         blockchain.add(genesisBlock);
+        blockchain.get(0).mineBlock(difficulty);
+
+        Block secondBlock = new Block("Yo im the second block", genesisBlock.getHash());
         blockchain.add(secondBlock);
+        System.out.println("Trying to Mine block 2... \n");
+        blockchain.get(1).mineBlock(difficulty);
+
+        Block thirdBlock = new Block("Hey im the third block", secondBlock.getHash());
         blockchain.add(thirdBlock);
+        System.out.println("Trying to Mine block 3... \n");
+        blockchain.get(2).mineBlock(difficulty);
 
-        for (int i = 1; i < blockchain.size(); i++) {
-            System.out.println("Trying to Mine block " + i + "... ");
-            blockchain.get(i).mineBlock(difficulty);
-        }
-
-        System.out.println("Blockchain is Valid: " + isChainValid());
+        System.out.println("Blockchain is Valid: " + isChainValid() + "\n");
 
         String blockchainJson = new GsonBuilder().setPrettyPrinting().create().toJson(blockchain);
         System.out.println(blockchainJson);
@@ -31,6 +33,7 @@ public class NoobChain {
 
     public static Boolean isChainValid() {
         Block currentBlock, previousBlock;
+        String hashTarget = new String(new char[difficulty]).replace('\0', '0');
 
         for (int i = 1; i < blockchain.size(); i++) {
             currentBlock = blockchain.get(i);
@@ -48,8 +51,12 @@ public class NoobChain {
                 return false;
             }
 
+            //check if hash is solved
+            if (!currentBlock.getHash().substring(0, difficulty).equals(hashTarget)) {
+                System.out.println("This block hasn't been mined");
+                return false;
+            }
         }
-
         return true;
     }
 }
