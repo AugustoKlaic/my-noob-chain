@@ -104,4 +104,8 @@ public class Transaction {
         }
         return total;
     }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
 }
