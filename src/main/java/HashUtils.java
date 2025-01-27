@@ -44,8 +44,7 @@ public class HashUtils {
             dsa.initSign(privateKey);
             byte[] strByte = input.getBytes();
             dsa.update(strByte);
-            byte[] realSig = dsa.sign();
-            output = realSig;
+            output = dsa.sign();
         } catch (NoSuchAlgorithmException | NoSuchProviderException | InvalidKeyException | SignatureException e) {
             throw new RuntimeException(e);
         }
@@ -70,7 +69,7 @@ public class HashUtils {
 
     //Tacks in array of transactions and returns a merkle root.
     public static String getMerkleRoot(List<Transaction> transactions) {
-        Integer count = transactions.size();
+        int count = transactions.size();
         List<String> previousTreeLayer = new ArrayList<>();
 
         for (Transaction transaction : transactions) {
@@ -87,7 +86,6 @@ public class HashUtils {
             count = treeLayer.size();
             previousTreeLayer = treeLayer;
         }
-        String merkleRoot = treeLayer.size() == 1 ? treeLayer.getFirst() : "";
-        return merkleRoot;
+        return treeLayer.size() == 1 ? treeLayer.getFirst() : "";
     }
 }

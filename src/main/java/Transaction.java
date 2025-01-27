@@ -6,13 +6,13 @@ import java.util.List;
 public class Transaction {
 
     private String transactionId; // this is also the hash of the transaction.
-    private PublicKey sender; // senders address/public key.
-    private PublicKey receiver; // Recipients address/public key.
-    private Float value;
+    private final PublicKey sender; // senders address/public key.
+    private final PublicKey receiver; // Recipients address/public key.
+    private final Float value;
     private byte[] signature; // this is to prevent anybody else from spending funds in our wallet
 
     private List<TransactionInput> inputs = new ArrayList<>();
-    private List<TransactionOutput> outputs = new ArrayList<>();
+    private final List<TransactionOutput> outputs = new ArrayList<>();
 
     private static int sequence = 0; // a rough count of how many transactions have been generated.
 
@@ -105,7 +105,31 @@ public class Transaction {
         return total;
     }
 
+    public List<TransactionOutput> getOutputs() {
+        return outputs;
+    }
+
     public String getTransactionId() {
         return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public PublicKey getSender() {
+        return sender;
+    }
+
+    public Float getValue() {
+        return value;
+    }
+
+    public PublicKey getReceiver() {
+        return receiver;
+    }
+
+    public List<TransactionInput> getInputs() {
+        return inputs;
     }
 }

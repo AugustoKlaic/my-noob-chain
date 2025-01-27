@@ -2,15 +2,15 @@ import java.security.PublicKey;
 
 public class TransactionOutput {
 
-    private String id;
-    private PublicKey receiver; //also known as the new owner of these coins.
-    private Float value; //the amount of coins they own
-    private String parentTransactionId; //the id of the transaction this output was created in
+    private final String id;
+    private final PublicKey receiver; //also known as the new owner of these coins.
+    private final Float value; //the amount of coins they own
 
     public TransactionOutput(PublicKey receiver, Float value, String parentTransactionId) {
         this.receiver = receiver;
         this.value = value;
-        this.parentTransactionId = parentTransactionId;
+
+        //the id of the transaction this output was created in
         this.id = HashUtils.applySha256(
                 HashUtils.getStringFromKey(receiver)
                         + value.toString()
@@ -28,5 +28,9 @@ public class TransactionOutput {
 
     public String getId() {
         return id;
+    }
+
+    public PublicKey getReceiver() {
+        return receiver;
     }
 }
